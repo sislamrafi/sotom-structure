@@ -121,12 +121,12 @@ typedef struct {
   uint32_t CNT;
   uint32_t PSC;
   uint32_t ARR;
-  uint32_t RESERVED1;
+  uint32_t RCR;//TIM 1 and 8
   uint32_t CCR1;
   uint32_t CCR2;
   uint32_t CCR3;
   uint32_t CCR4;
-  uint32_t RESERVED2;
+  uint32_t BDTR;//TIM 1 and 8
   uint32_t DCR;
   uint32_t DMAR;
   uint32_t OR; // only for tim2 and tim5
@@ -135,15 +135,18 @@ typedef struct {
 #define TIM2 ((TIM_t *)0x40000000)
 #define TIM5 ((TIM_t *)0x40000C00)
 
+#define TIM1 ((TIM_t *)0x40010000) //{'connected_with':APB2,'clock':90MHz}
+#define TIM8 ((TIM_t *)0x40010400)
+
 /*
     Data Structure for FLASH
 */
 typedef struct {
-  uint32_t ACR;
-  uint32_t KYER;
-  uint32_t OPTKEYR;
-  uint32_t SR;
-  uint32_t CR;
+  uint32_t ACR;//0x0
+  uint32_t KYER;//0x4
+  uint32_t OPTKEYR;//0x8
+  uint32_t SR;//0xc
+  uint32_t CR;//0x10
   uint32_t OPTCR;
 } FLASH_t;
 

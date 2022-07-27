@@ -3,6 +3,7 @@
 #define LED_PIN 0x04
 #define PUSH_BUTTON1 0x01U
 #define ON_BORD_LED 0x05U
+#define ANALOG_PIN 0x00U
 
 volatile int a = 10;
 uint8_t b[22];
@@ -22,39 +23,40 @@ int main(void) {
 
   rcc_config_HSE8MHz_SYS180MHz();
   ConfigTimer2ForSystem();
+  ConfigTimer2ForPWM();
   configUSART(USART2, USART2_PIN_A3_A2, 9600L);
 
   INIT_LCD();
 
   GPIO_ENABLE(GPIOA);
+
+  //config as output
   pinConfig(GPIOA, LED_PIN, GPIO_OUTPUT);
   pinConfig(GPIOA, ON_BORD_LED, GPIO_OUTPUT);
 
+  //config ANALOG_PIN as pwm
+  pinConfig(GPIOA, ANALOG_PIN, GPIO_ALTERNET|GPIO_AF_AF1|GPIO_HIGH_SPEED);
+
+  //config as input
   pinConfig(GPIOA, PUSH_BUTTON1, GPIO_INPUT | GPIO_PULL_DOWN | GPIO_LOCK_PIN);
 
   usart_println(USART2, "Hello From Stm32");
-
-  if (isPinLocked(GPIOA, PUSH_BUTTON1)) {
-    digitalWrite(GPIOA, ON_BORD_LED, GPIO_PIN_HIGH);
-  } else {
-    digitalWrite(GPIOA, ON_BORD_LED, GPIO_PIN_LOW);
-  }
 
   pinInterruptConfig(
       GPIOA, PUSH_BUTTON1,
       GPIO_INTERRUPT_TRIGGER_FALLING | GPIO_INTERRUPT_TRIGGER_RISING, 1);
 
-  // clearLCD();
-  // Delay(3000);
-  // printLineToLCD("INIT COMPLETE!!\nHELLO WORLD. :)");
+  clearLCD();
+  printLineToLCD("INIT COMPLETE!!\nHELLO WORLD. :)");
+  Delay(1500);
 
-  //__debugRamUsage();
   uint32_t aa = 0;
   while (1) {
     /* code */
     clearLCD();
     printLineToLCD("Analog Button: \n");
     printLineToLCD(itoa(__alalogReadDebug(),10));
+    setTimer2PWMDutyCycle( (1024*__alalogReadDebug()/0xFFFF) );
     digitalWrite(GPIOA, ON_BORD_LED, GPIO_PIN_HIGH);
     __digitalWriteDebugButton(ON_BORD_LED,GPIO_PIN_HIGH);
     __digitalWriteDebugButton(12,GPIO_PIN_HIGH);
@@ -65,6 +67,7 @@ int main(void) {
     clearLCD();
     printLineToLCD("Analog Button: \n");
     printLineToLCD(itoa(__alalogReadDebug(),10));
+    setTimer2PWMDutyCycle( (1024*__alalogReadDebug()/0xFFFF) );
     Delay(2000);
   }
 }
