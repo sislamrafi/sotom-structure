@@ -1,0 +1,21 @@
+{
+    "CC": "arm-none-eabi-gcc",
+    "CFLAGS": "-c -mcpu=$(MACH) -mthumb -std=gnu11 -Wall -O0",
+    "CHIP": "stm32f446re",
+    "CORE_DEVICE_FOLDER": "core/stm32f446re",
+    "LFLAGS": "-nostdlib -T $(CORE_DEVICE_FOLDER)/chip.ld -Wl,-Map=$(OUTPUT_FOLDER)/final.map",
+    "MACH": "cortex-m4",
+    "OUTPUT_FOLDER": "build",
+    "dependency": [
+        "app/main/main.c",
+        "core/stm32f446re/startup/startup.c",
+        "app/libs/gpio/gpio.c",
+        "app/libs/timer/timer.c",
+        "app/libs/rcc/rcc.c",
+        "app/libs/debug/debug.c",
+        "app/devices/output/lcd162a/lcd162a.c",
+        "app/libs/stdlib/stdlib.c",
+        "app/libs/flash/flash.c",
+        "app/protocols/usart/usart.c"
+    ]
+}
