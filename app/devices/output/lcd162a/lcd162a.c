@@ -1,4 +1,4 @@
-#include "LCD162A.h"
+#include "lcd162a.h"
 
 void gpioInitForLCD(void) {
   GPIO_ENABLE(GPIOB);

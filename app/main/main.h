@@ -7,6 +7,7 @@
 #include "../libs/timer/timer.h"
 #include "../libs/debug/debug.h"
 #include "../protocols/usart/usart.h"
+#include "../libs/pwm/pwm.h"
 #include <stdint.h>
 
 #endif

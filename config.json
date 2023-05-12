@@ -16,6 +16,7 @@
         "app/devices/output/lcd162a/lcd162a.c",
         "app/libs/stdlib/stdlib.c",
         "app/libs/flash/flash.c",
-        "app/protocols/usart/usart.c"
+        "app/protocols/usart/usart.c",
+        "app/libs/pwm/pwm.c"
     ]
 }
