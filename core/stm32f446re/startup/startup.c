@@ -9,6 +9,28 @@ void Default_Handler_Loop(void) {
   // do nothing
 }
 
+void *memcpy(void *dest, const void *src, uint16_t n)
+{
+    for (uint16_t i = 0; i < n; i++)
+    {
+        ((char*)dest)[i] = ((char*)src)[i];
+    }
+}
+
+void  *memset(void *b, int c, int len)
+{
+  int           i;
+  unsigned char *p = b;
+  i = 0;
+  while(len > 0)
+    {
+      *p = c;
+      p++;
+      len--;
+    }
+  return(b);
+}
+
 /*
     1)  copy .data section to sram
     2)  init the .bss section to 0x0 sram
